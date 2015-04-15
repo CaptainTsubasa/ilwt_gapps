@@ -1,0 +1,7 @@
+#!/bin/bash
+
+ant cleanupBefore
+ant initit
+ant generateCleanUpList
+ant buildNormal
+ant cleanupAfter
