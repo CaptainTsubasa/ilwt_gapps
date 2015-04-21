@@ -68,35 +68,41 @@
         <fileset dir="${structure.dir}">
           <include name="META-INF/**" />
           <include name="system/app/ConfigUpdater/**" />
-          <include name="system/app/ExchangeServices/**" />
-          <include name="system/app/GoogleCalendarSyncAdapter/**" />
-          <include name="system/app/GoogleContactsSyncAdapter/**" />
-          <include name="system/etc/**" />
-          <include name="system/framework/**" />
-          <include name="system/lib/**" />
-          <include name="system/priv-app/GoogleBackupTransport/**" />
-          <include name="system/priv-app/GoogleFeedback/**" />
-          <include name="system/priv-app/GoogleLoginService/**" />
-          <include name="system/priv-app/GoogleOneTimeInitializer/**" />
-          <include name="system/priv-app/GooglePartnerSetup/**" />
-          <include name="system/priv-app/GoogleServicesFramework/**" />
-          <include name="system/priv-app/Phonesky/**" />
-          <include name="system/priv-app/PrebuiltGmsCore/**" />
-          <include name="system/priv-app/SetupWizard/**" />
+		  <include name="system/app/ExchangeServices/**" />
+		  <include name="system/app/GoogleCalendarSyncAdapter/**" />
+		  <include name="system/app/GoogleContactsSyncAdapter/**" />
+		  <include name="system/etc/**" />
+		  <include name="system/framework/**" />
+		  <include name="system/lib/**" />
+		  <include name="system/priv-app/GoogleBackupTransport/**" />
+		  <include name="system/priv-app/GoogleFeedback/**" />
+		  <include name="system/priv-app/GoogleLoginService/**" />
+		  <include name="system/priv-app/GoogleOneTimeInitializer/**" />
+		  <include name="system/priv-app/GooglePartnerSetup/**" />
+		  <include name="system/priv-app/GoogleServicesFramework/**" />
+		  <include name="system/priv-app/Phonesky/**" />
+		  <include name="system/priv-app/PrebuiltGmsCore/**" />
+		  <include name="system/priv-app/SetupWizard/**" />
+          <include name="optional/**"/>
+          <exclude name="optional/face/**"/>
         </fileset>
     </copy>
     <copy file="${app.dir}/extras/updater-script" todir="${work.dir}/META-INF/com/google/android">
         <filterchain>
           <replaceregex pattern="@package@" replace="zero" flags="i"/>
           <replaceregex pattern="@cleanup.list@" replace="${cleanup.list}" flags="i"/>
+        </filterchain>
+    </copy>
+	<copy file="${app.dir}/structure/install-optional.sh" todir="${work.dir}">
+        <filterchain>
           <linecontains negate="true">
                 <contains value="#zero"/>
           </linecontains>
         </filterchain>
     </copy>
 
-    <!-- generate backup script -->
-    <fileset id="item.file" dir="${work.dir}/system" includes="**/*.*" />
+    <!-- generate backup script --> 
+    <fileset id="item.file" dir="${work.dir}/system" includes="**/*" />
     <pathconvert refid="item.file" property="file.list.zero" pathsep="&#10;" dirsep="/">
         <map from="${work.dir}/system/" to=''/>
     </pathconvert>
@@ -162,8 +168,8 @@
         </filterchain>
     </copy>
 
-    <!-- generate backup script -->
-    <fileset id="item.file" dir="${work.dir}/system" includes="**/*.*" />
+    <!-- generate backup script --> 
+    <fileset id="item.file" dir="${work.dir}/system" includes="**/*" />
     <pathconvert refid="item.file" property="file.list.mini" pathsep="&#10;" dirsep="/">
         <map from="${work.dir}/system/" to=''/>
     </pathconvert>
@@ -213,8 +219,8 @@
         </filterchain>
     </copy>
 
-    <!-- generate backup script -->
-    <fileset id="item.file" dir="${work.dir}/system" includes="**/*.*" />
+    <!-- generate backup script --> 
+    <fileset id="item.file" dir="${work.dir}/system" includes="**/*" />
     <pathconvert refid="item.file" property="file.list.normal" pathsep="&#10;" dirsep="/">
         <map from="${work.dir}/system/" to=''/>
     </pathconvert>
@@ -251,8 +257,8 @@
         </filterchain>
     </copy>
 
-    <!-- generate backup script -->
-    <fileset id="item.file" dir="${work.dir}/system" includes="**/*.*" />
+    <!-- generate backup script --> 
+    <fileset id="item.file" dir="${work.dir}/system" includes="**/*" />
     <pathconvert refid="item.file" property="file.list.full" pathsep="&#10;" dirsep="/">
         <map from="${work.dir}/system/" to=''/>
     </pathconvert>
@@ -272,9 +278,9 @@
   <!-- generate clean up list                                                     -->
   <!--=======================================================================-->
   <target name="generateCleanUpList">
-    <fileset id="cleanup.file" dir="${structure.dir}/system" includes="**/*.*" />
-    <pathconvert refid="cleanup.file" property="cleanup.list" pathsep="&quot;,&#10;&quot;" dirsep="/">
-        <map from="${structure.dir}/system/" to="/system/"/>
+    <fileset id="cleanup.file" dir="${structure.dir}/system" includes="**/*" />
+	<pathconvert refid="cleanup.file" property="cleanup.list" pathsep="&quot;,&#10;&quot;" dirsep="/">
+		<map from="${structure.dir}/system/" to="/system/"/>
     </pathconvert>
   </target>
 
